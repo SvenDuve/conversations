@@ -122,3 +122,8 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# own files to ignore
+playground.ipynb
+parallelChain.ipynb
+/context
