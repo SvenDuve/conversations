@@ -17,17 +17,20 @@ origins = [
 
 from langchain_openai import ChatOpenAI
 
+from langchain.memory import ConversationBufferMemory
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.prompts import PromptTemplate
 from langchain_core.prompts import format_document
 from langchain_core.output_parsers import StrOutputParser
-from langchain_core.runnables import RunnableMap, RunnablePassthrough
+from langchain_core.runnables import RunnableMap, RunnablePassthrough, RunnableLambda, RunnableParallel, RunnableSequence
 
 
 from langchain_openai import OpenAIEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain_community.document_loaders import UnstructuredHTMLLoader
 from langchain_community.document_loaders import WebBaseLoader
+from langchain_community.document_loaders import TextLoader # used to load some local with context
+
 
 from langserve import add_routes
 from langserve.pydantic_v1 import BaseModel, Field
@@ -45,6 +48,24 @@ openaiapikey = os.getenv('OPENAI_API_KEY')
 
 model = ChatOpenAI(model="gpt-3.5-turbo", temperature=0, api_key=openaiapikey)
 
+
+# Some Data
+# Example of structuring a conversation dataset
+conversation_dataset = [
+    {
+        "conversation": [
+            {"user": "Welche Produkte bieten sie an?", "bot": "Wir verkaufen eine grosse Auswahl verschiedenster Kabel."},
+            {"user": "Verkaufen Sie auch HDMI Kabel", "bot": "Nein, wir verkaufen keine HDMI Kabel."},
+            {"user": "Wer bist du?", "bot": "Mein Name ist Kablo ich bin der Chatbot Assistent der Firma ExpressKabel GmbH."},
+            {"user": "Was kannst du gut?", "bot": "Ich informiere unsere Kunden über die Firma ExpressKabel GmbH und deren Produkte."},
+            # Add more dialogues...
+        ]
+    },
+    # Add more conversations...
+]
+
+
+
 _TEMPLATE = """Given the following conversation and a follow up question, rephrase the 
 follow up question to be a standalone question, in its original language.
 
@@ -54,15 +75,23 @@ Follow Up Input: {question}
 Standalone question:"""
 
 
+
 CONDENSE_QUESTION_PROMPT = PromptTemplate.from_template(_TEMPLATE)
 
 
-ANSWER_TEMPLATE = """Answer the question based only on the following context:
+ANSWER_TEMPLATE = """You are a helpful assistant. You are having a conversation with a user. Please answer from the context:
+
 {context}
+
+Take into account the following chat history and the language it is in:
+
+{chat_history}
+
+Now answer the following question friendly and briefly in the language you detected in the chat history.: 
 
 Question: {question}
 """
-# ANSWER_PROMPT = ChatPromptTemplate.from_template(ANSWER_TEMPLATE)
+
 ANSWER_PROMPT = ChatPromptTemplate.from_template(ANSWER_TEMPLATE)
 
 DEFAULT_DOCUMENT_PROMPT = PromptTemplate.from_template(template="{page_content}")
@@ -74,10 +103,18 @@ def _combine_documents(
 ):
     """Combine documents into a single string."""
     doc_strings = [format_document(doc, document_prompt) for doc in docs]
-    # print("Doc Strings:")
-    # print(doc_strings)
     return document_separator.join(doc_strings)
 
+
+
+# Adapting the chat prompt to include few-shot learning examples
+def generate_prompt_with_examples(conversation_dataset):
+    example_conversations = "\n".join([
+        f"Human: {ex['user']}\nAssistant: {ex['bot']}"
+        for conversation in conversation_dataset
+        for ex in conversation['conversation']
+    ])
+    return f"\n{example_conversations}"
 
 
 # This formats the chat history into a string
@@ -88,15 +125,16 @@ def _format_chat_history(chat_history: List[Tuple]) -> str:
         human = "Human: " + dialogue_turn[0]
         ai = "Assistant: " + dialogue_turn[1]
         buffer += "\n" + "\n".join([human, ai])
+    buffer = generate_prompt_with_examples(conversation_dataset=conversation_dataset) + buffer
     return buffer
 
 
 
 # Get context from the website:
 # loader = WebBaseLoader(["https://www.express-kabel.de/ueber-uns/"])
-loader = WebBaseLoader("https://www.express-kabel.de/ueber-uns/")
-
+loader = TextLoader("./context/ek_context.md")
 data = loader.load()
+
 
 
 # Split
@@ -122,22 +160,34 @@ retriever = vectorstore.as_retriever()
 # )
 # retriever = vectorstore.as_retriever()
 
-# This is the input chain
-_inputs = RunnableMap(
-    standalone_question=RunnablePassthrough.assign(
-        chat_history=lambda x: _format_chat_history(x["chat_history"])
-    )
-    | CONDENSE_QUESTION_PROMPT
+
+
+entry = RunnableParallel(chat_history = RunnableLambda(lambda x: _format_chat_history(x["chat_history"])),
+            question = RunnableLambda(lambda x : x["question"]))#.invoke(hist.dict())
+
+
+standalone = (
+    CONDENSE_QUESTION_PROMPT
     | model
-    | StrOutputParser(),
+    | StrOutputParser()
 )
+
+# # This is the input chain
+# _inputs = RunnableMap(
+#     standalone_question=RunnablePassthrough.assign(
+#         chat_history=lambda x: _format_chat_history(x["chat_history"])
+#     )
+#     | CONDENSE_QUESTION_PROMPT
+#     | model
+#     | StrOutputParser(),
+# )
 
 
 # This is the context chain
-_context = {
-    "context": itemgetter("standalone_question") | retriever | _combine_documents,
-    "question": lambda x: x["standalone_question"],
-}
+# _context = {
+#     "context": itemgetter("standalone_question") | retriever | _combine_documents,
+#     "question": lambda x: x["standalone_question"],
+# }
 
 
 
@@ -154,7 +204,15 @@ class ChatHistory(BaseModel):
 
 
 conversational_qa_chain = (
-    _inputs | _context | ANSWER_PROMPT | model | StrOutputParser()
+    entry
+    | RunnableParallel(
+        chat_history = itemgetter("chat_history"),
+        question = standalone,
+        context = standalone | retriever | _combine_documents
+    )
+    | ANSWER_PROMPT # Requires question, history and context
+    | model
+    | StrOutputParser()
 )
 
 
