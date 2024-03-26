@@ -132,6 +132,7 @@ def _format_chat_history(chat_history: List[Tuple]) -> str:
 
 # Get context from the website:
 # loader = WebBaseLoader(["https://www.express-kabel.de/ueber-uns/"])
+print(os.listdir("./context"))
 loader = TextLoader("./context/ek_context.md")
 data = loader.load()
 
