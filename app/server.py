@@ -35,7 +35,7 @@ from langchain_community.document_loaders import TextLoader # used to load some 
 from langserve import add_routes
 from langserve.pydantic_v1 import BaseModel, Field
 
-# Import the load_dotenv function for the env
+# Import the load_dotenv function
 from dotenv import load_dotenv
 
 # Call the load_dotenv function
