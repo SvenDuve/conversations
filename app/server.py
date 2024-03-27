@@ -46,7 +46,7 @@ import os
 openaiapikey = os.getenv('OPENAI_API_KEY')
 
 
-model = ChatOpenAI(model="gpt-3.5-turbo", temperature=0, api_key=openaiapikey)
+model = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.5, api_key=openaiapikey)
 
 
 # Some Data
