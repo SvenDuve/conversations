@@ -54,11 +54,26 @@ model = ChatOpenAI(model="gpt-3.5-turbo", temperature=0, api_key=openaiapikey)
 conversation_dataset = [
     {
         "conversation": [
-            {"user": "Welche Produkte bieten sie an?", "bot": "Wir verkaufen eine grosse Auswahl verschiedenster Kabel."},
+            {"user": "Welche Produkte bieten sie an?", "bot": "Wir verkaufen eine grosse Auswahl verschiedener Kabel."},
             {"user": "Verkaufen Sie auch HDMI Kabel", "bot": "Nein, wir verkaufen keine HDMI Kabel."},
             {"user": "Wer bist du?", "bot": "Mein Name ist Kablo ich bin der Chatbot Assistent der Firma ExpressKabel GmbH."},
             {"user": "Was kannst du gut?", "bot": "Ich informiere unsere Kunden über die Firma ExpressKabel GmbH und deren Produkte ."},
-            # Add more dialogues...
+            {"user": "Ist die Firma ExpressKabel ISO zertifiziert?", "bot": "Die Firma ExpressKabel ist selbst nicht ISO zertifiziert, dennoch verfügen alle unsere Lieferanten über eine ISO Zertifizierung."},
+            {"user": "Kann ich bei Ihnen auch Kabel auf Mass bestellen?", "bot": "Ja, wir bieten auch Kabel auf Mass an. Bitte kontaktieren Sie uns für eine Offerte."},
+            {"user": "Welche Farben haben die Kabel?", "bot": "Wir bieten ein sehr breites Farbsortiment, das einfachste ist, wenn Sie uns Ihre Wünsche mitteilen, dann können wir Ihnen die passenden Kabel anbieten."},
+            {"user": "Können wir unsere gekaufte Ware auch von einer eigenen Spedition abholen lassen?", "bot": "Grundsätzlich ist dies möglich, allerdings bevorzugen wir die Spedition die wir bereits nutzen."},
+            {"user": "Warum bevorzugen sie Ihre Spedition?", "bot": "Unsere Spedition hat sich in den letzten Jahren als sehr zuverlässig erwiesen, zudem kommt eine Zeitersparnis von einem Tag hinzu."},
+            {"user": "Liefern Sie auch ins Ausland?", "bot": "Ja, wir liefern auch ins Ausland. Bitte beachten Sie, dass die Lieferkosten je nach Land variieren."},
+            {"user": "Mit welcher Spedition arbeiten Sie zusammen?", "bot": "Für Palettenware nutzen wir die Spedition Dachser, für Paketware GLS."},
+            {"user": "Haben Sie Leitungen auf Lager?", "bot": "Gerne prüfen wir für Sie ob wir die gewünschten Leitungen auf Lager haben."},
+            {"user": "Wie schnell können Sie die Ware versenden?", "bot": "Lagerware können wir grundsätzlich innerhalb eines Arbeitstages versenden."},
+            {"user": "Haben Sie nur die Artikel auf ihre Website im Portfolio?", "bot": "Nein, wir können selbstverständlich viele andere Leitungen anbieten mit der jeweiligen Mindestfertigungsmenge."},
+            {"user": "Wie sind ihre Öffnungszeiten?", "bot": "Montag – Donnerstag: 07.00 Uhr – 16.30 Uhr, Freitag. 07.00 Uhr – 14.00 Uhr"},
+            {"user": "Wie sind ihre Abholzeiten?", "bot": "Mo – Do: 07.30 Uhr – 16.00 Uhr, Fr. 07.30 Uhr – 13.30 Uhr"},
+            {"user": "Sind die Leitungen von OEM´s freigegeben?", "bot": "Ja unsere Leitungen sind OEM freigegeben."},
+            {"user": "Was ist der Unterschied zwischen Leiteraufbau A und B?", "bot": "Leiteraufbau A sind symmetrisch angeordnete Drähte während beim Leiteraufbau B die Drähte gewendelt sind. Die Drähte sind dünner und somit ist die Leitung flexibler."},
+            {"user": "Was ist der Unterschied zwischen FLRY-A und FLRY-B?", "bot": "Der Unterschied ist der Leiteraufbau. Leiteraufbau A sind symmetrisch angeordnete Drähte während beim Leiteraufbau B die Drähte gewendelt sind. Die Drähte sind dünner und somit ist die Leitung flexibler."}
+             # Add more dialogues...
         ]
     },
     # Add more conversations...
