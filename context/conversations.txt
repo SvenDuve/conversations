@@ -1,0 +1,12 @@
+# Beispiel für die Speicherung von Konversationen
+
+Unterhaltung: 
+user: "Was für Produkte bieten sie an?", bot: "Wir verkaufen Kabel in verschieden Ausführungen.",
+user: "Haben Sie auch Kabel in verschiedenen Farben?", bot: "Wir verkaufen Kabel in den Farben Rot, Grün ...",
+    # Add more dialogues...
+
+Unterhaltung:
+user: "Wie lange dauert die Lieferung?", bot: "Die Lieferung dauert in der Regel 2-3 Wochen, in Einzelfällen auch länger.",
+user: "Können Sie auch Expresslieferungen anbieten?", bot: "Ja, wir bieten auch Expresslieferungen an. Diese dauern in der Regel 2-3 Tage",
+user: "Was kostet eine Expresslieferung?", bot: "Die Kosten für eine Expresslieferung betragen pro kg Kabel 10 Euro.",
+

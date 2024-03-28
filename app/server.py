@@ -165,19 +165,6 @@ vectorstore = FAISS.from_documents(documents=all_splits, embedding=OpenAIEmbeddi
 retriever = vectorstore.as_retriever()
 
 
-
-
-# vectorstore = FAISS.from_texts(
-#     ["Martin liebt Bier", 
-#      "Johannes trinkt Whiskey", 
-#      "Sven trinkt nie Alkohol, er mag Tee.", 
-#      "Martin und Johannes trinken gemeinsam Bier", 
-#      "Nadja, Martin und Sven trinken gemeinsam Schnaps."], embedding=OpenAIEmbeddings()
-# )
-# retriever = vectorstore.as_retriever()
-
-
-
 entry = RunnableParallel(chat_history = RunnableLambda(lambda x: _format_chat_history(x["chat_history"])),
             question = RunnableLambda(lambda x : x["question"]))#.invoke(hist.dict())
 

@@ -126,4 +126,4 @@ dmypy.json
 # own files to ignore
 playground.ipynb
 parallelChain.ipynb
-/context
+#/context
