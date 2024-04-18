@@ -47,7 +47,7 @@ import os
 openaiapikey = os.getenv('OPENAI_API_KEY')
 
 
-model = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.3, api_key=openaiapikey)
+model = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.5, api_key=openaiapikey)
 
 
 # Some Data
@@ -68,7 +68,7 @@ conversation_dataset = [
             {"user": "Can I also order custom cables from you?", "bot": "Yes, we also offer custom cables. Please contact us for a quote."},
             {"user": "What colors do the cables come in?", "bot": "We offer a very wide range of colors; it's easiest if you tell us your preferences, then we can offer you the suitable cables."},
             {"user": "Can we have our purchased goods picked up by our own forwarding agent?", "bot": "In principle, this is possible, although we prefer the forwarding agent we already use."},
-            {"user": "Can I pick up my goods myself?", "bot": "Yes, you can pick up your goods yourself. Please note our pick-up times."},
+            {"user": "Can I pick up my goods myself?", "bot": "Yes, you can pick up your goods yourself. Please note our pick-up times. Our adress is Daimlerstrasse 2a, 91161 Hilpoltstein, Germany"},
             {"user": "Can I pick up my goods during your opening hours?", "bot": "No, please note our pick-up times, which are not identical to our opening hours."},
             {"user": "Why do you prefer your forwarding agent?", "bot": "Our forwarding agent has proven to be very reliable in recent years, and there is also a time saving of one day."},
             {"user": "Do you also deliver abroad?", "bot": "Yes, we also deliver abroad. Please note that delivery costs vary by country."},
