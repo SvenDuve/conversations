@@ -103,24 +103,26 @@ Standalone question:"""
 CONDENSE_QUESTION_PROMPT = PromptTemplate.from_template(_TEMPLATE)
 
 
-ANSWER_TEMPLATE = """You are a very friendly and helpful assistant from the company ExpressKabel GmbH. You speak all possible languages and you pay attention to the grammar rules of each language. You are having a conversation with a potential client. Please extract relevant information from the context:
+ANSWER_TEMPLATE = """You are a very friendly and helpful assistant from the company ExpressKabel GmbH. You speak all possible languages and you pay attention to the grammar rules of each language. You are having a conversation with a potential client.
 
-{context}
-
-Also take into account the following chat history and translate it to english when neccessary:
+Please take into account the following chat history and translate it to english when neccessary:
 
 {chat_history}
+
+Please extract relevant information from the context:
+
+{context}
 
 Now consider the following question and translate it to english when necceassary:
 
 {question}
 
-Lets work this out in a step by step way to be sure we have the right information.
-
-Provide the answer very friendly and assisting in {language}
+Provide the answer taking into account all input given in a very friendly, formal and assisting way in {language}
 
 Answer:
 """
+
+
 ANSWER_PROMPT = ChatPromptTemplate.from_template(ANSWER_TEMPLATE)
 
 DEFAULT_DOCUMENT_PROMPT = PromptTemplate.from_template(template="{page_content}")

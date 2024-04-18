@@ -1,6 +1,6 @@
 # About ExpressKabel GmbH
 
-ExpressKabel GmbH, a subsidiary of Leoni since 1977, operates globally in the cable trade and has been a distribution partner of Leoni since 2000. This ensures that you receive the highest quality products, even in smaller configurations. With our extensive experience and a strong partner by our side, we commit to providing you with optimal service.
+ExpressKabel GmbH is independent, but was a subsidiary of Leoni from 1977 until 2000. ExpressKabel GmbH operates globally in the cable trade and has been an independent distribution partner of Leoni since 2000. This ensures that you receive the highest quality products, even in smaller configurations. With our extensive experience and a strong partner by our side, we commit to providing you with optimal service.
 
 ## History
 
@@ -10,7 +10,7 @@ Here are some milestones of our history:
 
 * 1977: Establishment as a wholly-owned subsidiary of Leoni AG.
 * 1998: Warehouse expansion with single-core vehicle lines.
-* 2000: Became an independent GmbH – distribution partner of Leoni Kabel GmbH.
+* 2000: Became an independent company and is now a distribution partner of Leoni Kabel GmbH.
 * 2001: Relocation from Roth to Roth-Eckersmühlen with our own warehouse including a high-bay storage and our machinery.
 * 2004: Expansion of the warehouse to provide multi-core vehicle cables.
 * 2014: Expansion of the warehouse to provide high-voltage cables and a new winding machine.
@@ -30,6 +30,7 @@ Our team is the heart of ExpressKabel. We are a diverse collective of experts di
 * Procurement/Disposition/Logistics: Dan Lascu is our procurement expert, ensuring we always offer the best products at the best prices.
 * Accounting: Sandra Schick
 * Material Compliance: Patricia Etzel can help you with any questions regarding material regulations and certifications, for example IMDS, REACH, RoHS, and more.
+* Employees: We have a total of 12 employees working in various departments, including sales, procurement, logistics, and administration.
 
 
 ### Contact Information
@@ -55,6 +56,7 @@ Our team is the heart of ExpressKabel. We are a diverse collective of experts di
     * Phone: +49 9174 971530
     * Email: patricia.etzel@express-kabel.de
 
+VAT ID: DE812851616
 
 ## Our Commitment to Sustainability
 
@@ -76,10 +78,10 @@ Our customers are at the center of our actions. We aim to deliver not only produ
 
 ## Key Figures and Achievements of ExpressKabel GmbH
 
-ExpressKabel GmbH is a leading provider of cables and wires for the automotive industry and other sectors. With a wide range of products, high quality, and excellent service, the company has earned an outstanding reputation. Here are some key figures and achievements of ExpressKabel GmbH:
+ExpressKabel GmbH is a leading provider of cables for the automotive industry and other sectors. With a wide range of products, high quality, and excellent service, the company has earned an outstanding reputation. Here are some key figures and achievements of ExpressKabel GmbH:
 
 * Warehouse Space: Modern warehouse with an area of approx. 1500 m², enabling fast and reliable shipping of our products.
-* Inventory Management: We maintain a large selection of cables and wires in stock to ensure prompt delivery to our customers.
+* Inventory Management: We maintain a large selection of cables in stock to ensure prompt delivery to our customers.
 * Revenues: The revenues of ExpressKabel GmbH amount to approx. 6.5 million euros per year. Profit, Profit Margin and Earnings are not disclosed.
 
 We value customer satisfaction and handle orders with the same care and reliability, regardless of the size.
@@ -93,13 +95,13 @@ At ExpressKabel, we are optimistic about the future. We plan to continue to grow
 
 ## Services
 
-* Storage Services: We offer storage services for cables and wires, ensuring that our customers have access to the products they need when they need them.
-* Rewinding service: We offer a rewinding service for cables and wires in order to realize individual lengths and designs for our customers. In particular, we also rewind from large spools to smaller spools.
-* Call orders: We offer our customers the opportunity to arrange call orders to ensure a continuous supply of cables and wires.
+* Storage Services: We offer storage services for cables, ensuring that our customers have access to the products they need when they need them.
+* Rewinding service: We offer a rewinding service for cables in order to realize individual lengths and designs for our customers. In particular, we also rewind from large spools to smaller spools.
+* Call orders: We offer our customers the opportunity to arrange call orders to ensure a continuous supply of cables.
 * Framework agreements: We offer framework agreements for our customers in order to establish long-term business relationships and ensure attractive conditions.
-* Small quantities: We also deliver small quantities of cables and wires to give small companies and startups access to high-quality products.
-* Original Equipment Manufacturers (OEM): We also supply OEMs with cables and wires in the area of ​​research and development for the production of pre-series and series.
-* Material compliance: We offer our customers support in complying with material regulations and certifications for cables and wires.
+* Small quantities: We also deliver small quantities of cables to give small companies and startups access to high-quality products.
+* Original Equipment Manufacturers (OEM): We also supply OEMs with cables in the area of ​​research and development for the production of pre-series and series.
+* Material compliance: We offer our customers support in complying with material regulations and certifications for cables.
 
 ## FLRY Cables
 
@@ -128,11 +130,13 @@ LEONI Dacar® refers to a specific range of data and coaxial cables developed an
 
 ## General Information
 
-We do not have any distribution partners outside of Germany, coordination is always carried out by our team in Hilpoltstein, Germany.
+We do not have any distribution partners outside of Germany, coordination is always carried out by our team in Daimlerstrasse 2a, 91161 Hilpoltstein, Germany.
+
+Our VAT number is DE812851616
 
 ### Delivery Terms
 
-* Delivery is **generally** made **ex works**, EXW, Hilpoltstein. 
+* Delivery is **generally** made **ex works**, EXW, Daimlerstrasse 2a, 91161 Hilpoltstein, Germany. 
 * Only for **appropriate quantities and after negotiation** we can deliver under the terms **free delivery** or **Delivered At Place**, DAP.
 
 ### Delivery Countries 
