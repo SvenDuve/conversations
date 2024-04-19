@@ -9,7 +9,7 @@ packages = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = ">=3.11,<3.12"
 uvicorn = "^0.23.2"
 langserve = {extras = ["server"], version = ">=0.0.30"}
 pydantic = "<2"
@@ -18,6 +18,14 @@ faiss-cpu = "^1.8.0"
 langchain-openai = "^0.0.8"
 python-dotenv = "^1.0.1"
 beautifulsoup4 = "^4.12.3"
+unstructured = "^0.13.0"
+markdown = "^3.6"
+pypdf = "^4.2.0"
+pdf2image = "^1.17.0"
+pdfminer-six = "^20231228"
+pillow-heif = "^0.16.0"
+opencv-python-headless = "^4.9.0.80"
+pikepdf = "^8.15.0"
 
 
 [tool.poetry.group.dev.dependencies]

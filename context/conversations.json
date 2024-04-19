@@ -1,0 +1,26 @@
+[
+    {
+        "conversation": [
+            {
+                "Human": "What products do you offer?",
+                "Assistant": "We offer a variety of cables and accessories."
+            },
+            {
+                "Human": "Can you tell me more about your HDMI cables?",
+                "Assistant": "Sure, our HDMI cables provide premium connectivity for your audiovisual needs."
+            }
+        ]
+    },
+    {
+        "conversation": [
+            {
+                "Human": "Welche Produkte bieten sie an?",
+                "Assistant": "Wir verkaufen Kabel an Autozulieferer und Produzenten."
+            },
+            {
+                "Human": "Verkaufen sie auch andere Arten von Kabel?",
+                "Assistant": "Leider nein, wir konzentrieren uns auf den Markt für Spezialkabel."
+            }
+        ]
+    }
+]

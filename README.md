@@ -1,4 +1,15 @@
-# conversation
+## To Dos
+
+- enable more targeted few shot learning, perhaps include hugging face in combination with the meta model
+- try to implement some synonym replacement for the few shot learning
+- enable to differentiate between questions and answers
+- potentially enhance prompt/ chain to parallelise question streams aside expressions, like Hello and Goodbye etc. 
+
+
+
+
+
+
 
 ## Installation
 
@@ -83,3 +94,6 @@ We also expose port 8080 with the `-p 8080:8080` option.
 ```shell
 docker run -e OPENAI_API_KEY=$OPENAI_API_KEY -p 8080:8080 my-langserve-app
 ```
+
+in pyproject.toml
+python = "^3.11"

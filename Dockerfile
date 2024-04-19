@@ -14,6 +14,8 @@ RUN poetry install  --no-interaction --no-ansi --no-root
 
 COPY ./app ./app
 
+COPY ./context ./context
+
 RUN poetry install --no-interaction --no-ansi
 
 EXPOSE 3000
