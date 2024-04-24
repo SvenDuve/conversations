@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
-from operator import itemgetter
-from typing import List, Tuple
+
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -13,28 +12,70 @@ origins = [
     "https://xp-cable-chat-bot.vercel.app",  # Allow your production URL
 ]
 
+from packages.nest_retrievers import HelloWorld, vectorstore_backed_retriever, create_compression_retriever, CohereRerank_retriever, retrieval_blocks
+from packages.utils import langchain_document_loader, select_embeddings_model, create_vectorstore, instantiate_LLM
 
+## New Imports
+import numpy as np
+from itertools import combinations
+from operator import itemgetter
+from typing import List, Tuple
 
-from langchain_openai import ChatOpenAI
+# OpenAI
+from langchain_openai import OpenAI, OpenAIEmbeddings, ChatOpenAI
 
+# Hugging Face
+from langchain_community.embeddings import HuggingFaceInferenceAPIEmbeddings
+from langchain_community.llms import HuggingFaceHub
+
+# prompts memory chains
+from langchain_core.prompts import PromptTemplate, ChatPromptTemplate
+from langchain.chains import ConversationalRetrievalChain
 from langchain.memory import ConversationBufferMemory
-from langchain_core.prompts import ChatPromptTemplate
-from langchain_core.prompts import PromptTemplate
-from langchain_core.prompts import format_document
-from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnableMap, RunnablePassthrough, RunnableLambda, RunnableParallel, RunnableSequence
+from langchain.schema import Document, format_document
+from langchain_core.messages import AIMessage, HumanMessage, get_buffer_string
+
+# Load docs
+from langchain_community.document_loaders import (
+    PyPDFLoader,
+    TextLoader,
+    WebBaseLoader,
+    UnstructuredMarkdownLoader,
+    DirectoryLoader,
+    CSVLoader
+)
+
+# Text Splitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain.text_splitter import CharacterTextSplitter
+
+# Output Parsers
+from langchain_core.output_parsers import StrOutputParser
 
 
-from langchain_openai import OpenAIEmbeddings
-from langchain_community.vectorstores import FAISS
-from langchain_community.document_loaders import UnstructuredHTMLLoader
-from langchain_community.document_loaders import UnstructuredMarkdownLoader
-from langchain_community.document_loaders import WebBaseLoader
-from langchain_community.document_loaders import TextLoader # used to load some local with context
+# Vector Stores
+#from langchain_community.vectorstores import FAISS
+from langchain_chroma import Chroma
 
 
+# Contextual Compression
+from langchain.retrievers.document_compressors import DocumentCompressorPipeline
+from langchain_community.document_transformers import EmbeddingsRedundantFilter, LongContextReorder
+from langchain.retrievers.document_compressors import EmbeddingsFilter
+from langchain.retrievers import ContextualCompressionRetriever
+
+# Cohere
+from langchain.retrievers.document_compressors import CohereRerank
+from langchain_community.llms import Cohere
+
+
+
+# unclear
+from langchain_core.messages.utils import get_buffer_string
 from langserve import add_routes
 from langserve.pydantic_v1 import BaseModel, Field
+
 
 # Import the load_dotenv function
 from dotenv import load_dotenv
@@ -45,9 +86,21 @@ load_dotenv()
 # Now you can get the value of the environment variable
 import os
 openaiapikey = os.getenv('OPENAI_API_KEY')
+hfapikey = os.getenv('HF_API_KEY')
+cohereapikey = os.getenv('COHERE_API_KEY')
 
 
-model = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.5, api_key=openaiapikey)
+##
+
+
+from langchain_core.prompts import format_document
+
+
+
+
+# model = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.5, api_key=openaiapikey)
+model = instantiate_LLM("OpenAI", api_key=openaiapikey, temperature=0.1, model_name="gpt-3.5-turbo")
+# model = instantiate_LLM("HuggingFace", api_key=hfapikey, temperature=0.1, model_name="mistralai/Mistral-7B-Instruct-v0.2")
 
 
 # Some Data
@@ -165,23 +218,41 @@ def _format_chat_history(chat_history: List[Tuple]) -> str:
 
 # Get context from the website:
 # loader = WebBaseLoader(["https://www.express-kabel.de/ueber-uns/"])
-print(os.listdir("./"))
-loader = UnstructuredMarkdownLoader("./context/ek_context_en.md", mode="elements")
-# loader = TextLoader("./context/ek_context.md")
-data = loader.load()
+# print(os.listdir("./"))
+# loader = UnstructuredMarkdownLoader("./context/ek_context_en.md", mode="elements")
+# # loader = TextLoader("./context/ek_context.md")
+# data = loader.load()
 
 
 
-# Split
-from langchain_text_splitters import RecursiveCharacterTextSplitter
-text_splitter = RecursiveCharacterTextSplitter(chunk_size=512, chunk_overlap=256)
-all_splits = text_splitter.split_documents(data)
+# # Split
+# from langchain_text_splitters import RecursiveCharacterTextSplitter
+# text_splitter = RecursiveCharacterTextSplitter(chunk_size=512, chunk_overlap=256)
+# all_splits = text_splitter.split_documents(data)
 
 
-# Add to vectorDB
-vectorstore = FAISS.from_documents(documents=all_splits, embedding=OpenAIEmbeddings())
+# # Add to vectorDB
+# vectorstore = FAISS.from_documents(documents=all_splits, embedding=OpenAIEmbeddings())
 
-retriever = vectorstore.as_retriever()
+
+retriever = retrieval_blocks(
+    build_vectorstore=False,
+    LLM_service = "OpenAI",
+    vectorstore_name="vs",
+    chunk_size=512,
+    chunk_overlap=256,
+    retriever_type="vectorstore_backed_retriever",
+    base_retriever_search_type = "similarity",
+    base_retriever_k = 10,
+    base_retriever_score_threshold = None,
+    compression_retriever_k = 16,
+    cohere_api_key = cohereapikey,
+    cohere_model = "rerank-multilingual-v2.0",
+    cohere_top_n = 8
+)
+
+
+# retriever = vectorstore.as_retriever()
 
 
 entry = RunnableParallel(chat_history = RunnableLambda(lambda x: _format_chat_history(x["chat_history"])),
