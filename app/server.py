@@ -235,13 +235,21 @@ def _format_chat_history(chat_history: List[Tuple]) -> str:
 # vectorstore = FAISS.from_documents(documents=all_splits, embedding=OpenAIEmbeddings())
 
 
+create_retriever = True
+
+if os.listdir("vs"):
+    create_retriever = False
+
+
 retriever = retrieval_blocks(
-    build_vectorstore=False,
+    build_vectorstore=create_retriever,
     LLM_service = "OpenAI",
     vectorstore_name="vs",
     chunk_size=512,
     chunk_overlap=256,
-    retriever_type="vectorstore_backed_retriever",
+    # retriever_type="vectorstore_backed_retriever",
+    retriever_type="Cohere_reranker",
+    # retriever_type="Contextual_compression",
     base_retriever_search_type = "similarity",
     base_retriever_k = 10,
     base_retriever_score_threshold = None,
