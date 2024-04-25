@@ -127,4 +127,7 @@ dmypy.json
 playground.ipynb
 parallelChain.ipynb
 pdfPlayground.ipynb
-#/context
+playground_2.ipynb
+/vs
+/context
+/chroma_vs
