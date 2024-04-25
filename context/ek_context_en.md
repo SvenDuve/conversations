@@ -38,23 +38,23 @@ Our team is the heart of ExpressKabel. We are a diverse collective of experts di
 * General Contact:
     * Phone: +49 9174 971530
     * Fax: +49 9174 9715320
-    * Email: info@express-kabel.de
+    * Email: <a href="mailto:info@express-kabel.de" >info@express-kabel.de</a>
     * Address: Daimlerstrasse 2a, 91161 Hilpoltstein, Germany
 
 * Sales Contact:
     * Jennifer Mundt and Lea Somann
     * Phone: +49 9174 971530
-    * Email: sales@express-kabel.de
+    * Email: <a href="mailto:sales@express-kabel.de" >sales@express-kabel.de</a>
 
 * Procurement and Logistics Contact:
     * Dan Lascu
     * Phone: +49 9174 9715314
-    * Email: dan.lascu@express-kabel.de
+    * Email: <a href="mailto:dan.lascu@express-kabel.de" >dan.lascu@express-kabel.de</a>
 
 * Material Compliance Contact:
     * Patricia Etzel
     * Phone: +49 9174 971530
-    * Email: patricia.etzel@express-kabel.de
+    * Email: <a href="mailto:patricia.etzel@express-kabel.de" >patricia.etzel@express-kabel.de</a>
 
 VAT ID: DE812851616
 
