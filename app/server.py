@@ -66,7 +66,8 @@ from langchain.retrievers.document_compressors import EmbeddingsFilter
 from langchain.retrievers import ContextualCompressionRetriever
 
 # Cohere
-from langchain.retrievers.document_compressors import CohereRerank
+# from langchain.retrievers.document_compressors import CohereRerank
+from langchain_cohere import CohereRerank
 from langchain_community.llms import Cohere
 
 
@@ -345,6 +346,13 @@ app.add_middleware(
 
 # Edit this to add the chain you want to add
 add_routes(app, chain, enable_feedback_endpoint=True)
+
+# add a simple hello world route
+@app.get("/")
+def read_root():
+    return {"Hello": "World"}
+
+
 
 if __name__ == "__main__":
     import uvicorn

@@ -26,6 +26,7 @@ cohere = "^5.3.3"
 langchain-cli = "^0.0.21"
 pydantic = "<2"
 uvicorn = "0.23.2"
+langchain-cohere = "^0.1.4"
 
 
 [build-system]
