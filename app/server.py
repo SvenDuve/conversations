@@ -267,6 +267,11 @@ app.add_middleware(
 # Edit this to add the chain you want to add
 add_routes(app, chain, enable_feedback_endpoint=True)
 
+# add a simple hello world route
+@app.get("/")
+def read_root():
+    return {"Hello": "World"}
+
 if __name__ == "__main__":
     import uvicorn
 
