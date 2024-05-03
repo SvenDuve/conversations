@@ -20,6 +20,9 @@ COPY ./vs ./vs
 
 RUN poetry install --no-interaction --no-ansi
 
+RUN python -m nltk.downloader punkt
+RUN python -m nltk.downloader averaged_perceptron_tagger
+
 EXPOSE 3000
 
 CMD exec uvicorn app.server:app --host 0.0.0.0 --port 3000

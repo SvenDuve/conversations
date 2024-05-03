@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
-
+import time
+start_time = time.time()
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -96,7 +97,7 @@ cohereapikey = os.getenv('COHERE_API_KEY')
 
 from langchain_core.prompts import format_document
 
-
+print("Package Loading Time: ", time.time() - start_time)
 
 
 # model = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.5, api_key=openaiapikey)
@@ -235,11 +236,11 @@ def _format_chat_history(chat_history: List[Tuple]) -> str:
 # # Add to vectorDB
 # vectorstore = FAISS.from_documents(documents=all_splits, embedding=OpenAIEmbeddings())
 
-
+start_time = time.time()
 create_retriever = True
 
-if os.listdir("vs"):
-    create_retriever = False
+# if os.listdir("vs"):
+#     create_retriever = False
 
 
 retriever = retrieval_blocks(
@@ -260,7 +261,7 @@ retriever = retrieval_blocks(
     cohere_top_n = 8
 )
 
-
+print("Retriever Loading Time: ", time.time() - start_time)
 # retriever = vectorstore.as_retriever()
 
 
