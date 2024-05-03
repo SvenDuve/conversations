@@ -239,8 +239,9 @@ def _format_chat_history(chat_history: List[Tuple]) -> str:
 start_time = time.time()
 create_retriever = True
 
-# if os.listdir("vs"):
-#     create_retriever = False
+if os.listdir("vs"):
+    print("Loading Vectorstore")
+    create_retriever = False
 
 
 retriever = retrieval_blocks(
