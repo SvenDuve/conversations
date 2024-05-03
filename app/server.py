@@ -1,5 +1,6 @@
 #!/usr/bin/env python
-
+import time
+start_time = time.time()
 from operator import itemgetter
 from typing import List, Tuple
 
@@ -48,7 +49,8 @@ openaiapikey = os.getenv('OPENAI_API_KEY')
 
 
 model = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.5, api_key=openaiapikey)
-
+end_time = time.time()
+print(f"Time taken to load model: {end_time - start_time} seconds")
 
 # Some Data
 # Example of structuring a conversation dataset
@@ -162,7 +164,7 @@ def _format_chat_history(chat_history: List[Tuple]) -> str:
     return buffer
 
 
-
+start_time = time.time()
 # Get context from the website:
 # loader = WebBaseLoader(["https://www.express-kabel.de/ueber-uns/"])
 print(os.listdir("./"))
@@ -180,9 +182,9 @@ all_splits = text_splitter.split_documents(data)
 
 # Add to vectorDB
 vectorstore = FAISS.from_documents(documents=all_splits, embedding=OpenAIEmbeddings())
-
 retriever = vectorstore.as_retriever()
-
+end_time = time.time()
+print(f"Time taken to load context: {end_time - start_time} seconds")
 
 entry = RunnableParallel(chat_history = RunnableLambda(lambda x: _format_chat_history(x["chat_history"])),
             question = RunnableLambda(lambda x : x["question"]))#.invoke(hist.dict())
