@@ -237,15 +237,11 @@ def _format_chat_history(chat_history: List[Tuple]) -> str:
 # vectorstore = FAISS.from_documents(documents=all_splits, embedding=OpenAIEmbeddings())
 
 start_time = time.time()
-create_retriever = True
-
-if os.listdir("vs"):
-    print("Loading Vectorstore")
-    create_retriever = False
+print("Loading Vectorstore")
 
 
 retriever = retrieval_blocks(
-    build_vectorstore=create_retriever,
+    build_vectorstore=False,
     LLM_service = "OpenAI",
     vectorstore_name="vs",
     chunk_size=512,
