@@ -51,6 +51,11 @@ Dan Lascu
 Telefon: +49 9174 9715314
 Email: dan.lascu@express-kabel.de
 
+- Kontakt Materialcompliance:
+Patricia Etzel
+Telefon: +49 9174 971530
+Email: patricia.etzel©express-kabel.de
+
 
 ## Unser Engagement für Nachhaltigkeit
 

@@ -16,6 +16,8 @@ COPY ./app ./app
 
 COPY ./context ./context
 
+COPY ./vs ./vs
+
 RUN poetry install --no-interaction --no-ansi
 
 RUN python -m nltk.downloader punkt
