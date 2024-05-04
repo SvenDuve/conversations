@@ -1,14 +1,8 @@
 #!/usr/bin/env python
-<<<<<<< HEAD
 import time
 start_time = time.time()
 from operator import itemgetter
 from typing import List, Tuple
-=======
-
-import time
-start_time = time.time()
->>>>>>> rag
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -99,11 +93,6 @@ hfapikey = os.getenv('HF_API_KEY')
 cohereapikey = os.getenv('COHERE_API_KEY')
 
 
-<<<<<<< HEAD
-model = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.5, api_key=openaiapikey)
-end_time = time.time()
-print(f"Time taken to load model: {end_time - start_time} seconds")
-=======
 ##
 
 
@@ -116,7 +105,6 @@ print("Package Loading Time: ", time.time() - start_time)
 model = instantiate_LLM("OpenAI", api_key=openaiapikey, temperature=0.1, model_name="gpt-3.5-turbo")
 # model = instantiate_LLM("HuggingFace", api_key=hfapikey, temperature=0.1, model_name="mistralai/Mistral-7B-Instruct-v0.2")
 
->>>>>>> rag
 
 # Some Data
 # Example of structuring a conversation dataset
@@ -246,13 +234,6 @@ start_time = time.time()
 # all_splits = text_splitter.split_documents(data)
 
 
-<<<<<<< HEAD
-# Add to vectorDB
-vectorstore = FAISS.from_documents(documents=all_splits, embedding=OpenAIEmbeddings())
-retriever = vectorstore.as_retriever()
-end_time = time.time()
-print(f"Time taken to load context: {end_time - start_time} seconds")
-=======
 # # Add to vectorDB
 # vectorstore = FAISS.from_documents(documents=all_splits, embedding=OpenAIEmbeddings())
 
@@ -281,7 +262,6 @@ retriever = retrieval_blocks(
 print("Retriever Loading Time: ", time.time() - start_time)
 # retriever = vectorstore.as_retriever()
 
->>>>>>> rag
 
 entry = RunnableParallel(chat_history = RunnableLambda(lambda x: _format_chat_history(x["chat_history"])),
             question = RunnableLambda(lambda x : x["question"]))#.invoke(hist.dict())
@@ -371,11 +351,8 @@ add_routes(app, chain, enable_feedback_endpoint=True)
 def read_root():
     return {"Hello": "World"}
 
-<<<<<<< HEAD
-=======
 
 
->>>>>>> rag
 if __name__ == "__main__":
     import uvicorn
 
