@@ -127,12 +127,7 @@ dmypy.json
 playground.ipynb
 parallelChain.ipynb
 pdfPlayground.ipynb
-<<<<<<< HEAD
-/context
-=======
 playground_2.ipynb
 /vs/*.*
 /context
-/chroma_vs
 /vs/**
->>>>>>> rag
