@@ -129,5 +129,5 @@ parallelChain.ipynb
 pdfPlayground.ipynb
 playground_2.ipynb
 /vs/*.*
-/context
+/context/*.*
 /vs/**

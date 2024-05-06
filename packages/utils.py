@@ -11,6 +11,7 @@ from langchain_community.document_loaders import (
     CSVLoader
 )
 import os
+import json
 
 # Vector Stores
 #from langchain_community.vectorstores import FAISS
@@ -96,3 +97,10 @@ def instantiate_LLM(LLM_provider="OpenAI", api_key=None, temperature=0.5, top_p=
             )
         
     return llm
+
+
+
+def load_conversation_dataset():
+    with open('./context/few_shot_context/conversation_dataset.json', 'r') as f:
+        conversation_dataset = json.load(f)
+    return conversation_dataset

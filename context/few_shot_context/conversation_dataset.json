@@ -1,0 +1,116 @@
+{
+    "general": [
+        {
+            "user": "What are the earnings, profit, profit margin of Express Kabel GmbH?",
+            "bot": "I apologise, I cannot provide information about this, but our revenues are approximately 6.5 million Euros."
+        },
+        {
+            "user": "What are your biggest clients?",
+            "bot": "I apologise, I cannot provide information about our clients as this is confidential, but we can disclose that we deliver almost all OEMs."
+        },
+        {
+            "user": "Do you have any global Distribution Partners?",
+            "bot": "No, we do not have any Distribution Partners, but we coordinate everything out of our office in Hilpoltstein, Germany."
+        },
+        {
+            "user": "Do you have a distribution partner in Asia?",
+            "bot": "No, we do not have any Distribution Partners, but we coordinate everything out of our office in Hilpoltstein, Germany."
+        },
+        {
+            "user": "Who are you?",
+            "bot": "My name is Kablo, and I am the chatbot assistant for ExpressKabel GmbH."
+        },
+        {
+            "user": "What are you good at?",
+            "bot": "I inform our customers about ExpressKabel GmbH and their products."
+        },
+        {
+            "user": "Is ExpressKabel ISO certified?",
+            "bot": "ExpressKabel itself is not ISO certified, however, all our suppliers have ISO certification."
+        }
+    ],
+    "product": [
+        {
+            "user": "Please explain your spooling system.",
+            "bot": "Sure, please check out our spooling system page on our website or the following link <Link>https://youtu.be/EdyvLlevux8</Link>."
+        },
+        {
+            "user": "Which products do you offer?",
+            "bot": "We sell a wide variety of different cables."
+        },
+        {
+            "user": "I require automotive cables, do you have them?",
+            "bot": "Many thanks for your request, we have a wide range of automotive cables, please provide more information of what you are looking for."
+        },
+        {
+            "user": "Do you also sell HDMI cables?",
+            "bot": "No, we do not sell HDMI cables."
+        },
+        {
+            "user": "Can I also order custom cables from you?",
+            "bot": "Yes, we also offer custom cables. Please contact us for a quote."
+        },
+        {
+            "user": "What colors do the cables come in?",
+            "bot": "We offer a very wide range of colors; it's easiest if you tell us your preferences, then we can offer you the suitable cables."
+        },
+        {
+            "user": "Do you only have the items on your website in your portfolio?",
+            "bot": "No, we can of course offer many other cables with the respective minimum production quantity."
+        },
+        {
+            "user": "Are the cables approved by OEMs?",
+            "bot": "Yes, our cables are OEM approved."
+        },
+        {
+            "user": "What is the difference between conductor configuration A and B?",
+            "bot": "Conductor configuration A has symmetrically arranged wires while in configuration B the wires are twisted. The wires are thinner, making the cable more flexible."
+        },
+        {
+            "user": "What is the difference between FLRY-A and FLRY-B?",
+            "bot": "The difference is in the conductor configuration. Conductor configuration A has symmetrically arranged wires while in configuration B the wires are twisted. The wires are thinner, making the cable more flexible."
+        }
+    ],
+    "service": [
+        {
+            "user": "Can we have our purchased goods picked up by our own forwarding agent?",
+            "bot": "In principle, this is possible, although we prefer the forwarding agent we already use."
+        },
+        {
+            "user": "Can I pick up my goods myself?",
+            "bot": "Yes, you can pick up your goods yourself. Please note our pick-up times. Our adress is Daimlerstrasse 2a, 91161 Hilpoltstein, Germany"
+        },
+        {
+            "user": "Can I pick up my goods during your opening hours?",
+            "bot": "No, please note our pick-up times, which are not identical to our opening hours."
+        },
+        {
+            "user": "Why do you prefer your forwarding agent?",
+            "bot": "Our forwarding agent has proven to be very reliable in recent years, and there is also a time saving of one day."
+        },
+        {
+            "user": "Do you also deliver abroad?",
+            "bot": "Yes, we also deliver abroad. Please note that delivery costs vary by country."
+        },
+        {
+            "user": "Which forwarding agent do you work with?",
+            "bot": "For pallet goods, we use the forwarding agent Dachser, for parcel goods GLS."
+        },
+        {
+            "user": "Do you have cables in stock?",
+            "bot": "We are happy to check for you whether we have the desired cables in stock."
+        },
+        {
+            "user": "How quickly can you ship the goods?",
+            "bot": "We can generally ship in-stock items within one working day."
+        },
+        {
+            "user": "What are your opening hours?",
+            "bot": "Monday \u2013 Thursday: 07:00 \u2013 16:30, Friday: 07:00 \u2013 14:00"
+        },
+        {
+            "user": "What are your pick-up times?",
+            "bot": "Mon \u2013 Thu: 07:30 \u2013 16:00, Fri: 07:30 \u2013 13:30"
+        }
+    ]
+}
