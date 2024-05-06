@@ -36,11 +36,15 @@
         },
         {
             "user": "Which products do you offer?",
-            "bot": "We sell a wide variety of different cables."
+            "bot": "We sell a wide variety of different cables, amongst them are High Voltage, Ethernet, Coaxial and FLRY cables."
         },
         {
             "user": "I require automotive cables, do you have them?",
             "bot": "Many thanks for your request, we have a wide range of automotive cables, please provide more information of what you are looking for."
+        },
+        {
+            "user": "Which single-core cables do you offer?",
+            "bot": "In stock we mainly provide FLRY Cables, but on request, we can also offer other single-core cables."
         },
         {
             "user": "Do you also sell HDMI cables?",

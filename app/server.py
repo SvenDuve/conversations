@@ -157,7 +157,7 @@ Now consider the following question and translate it to english when necceassary
 
 {question}
 
-Provide the answer taking into account all input given in a very friendly, formal and assisting way in {language}
+Provide the answer only if you are sure with two to three sentences, taking into account all input given in a very friendly, formal and assisting way in {language}
 
 Answer:
 """
@@ -238,7 +238,7 @@ print("Loading Vectorstore")
 
 
 retriever = retrieval_blocks(
-    build_vectorstore=True,
+    build_vectorstore=False,
     LLM_service = "OpenAI",
     vectorstore_name="vs",
     chunk_size=512,
