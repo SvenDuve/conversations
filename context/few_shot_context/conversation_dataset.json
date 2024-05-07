@@ -21,12 +21,24 @@
             "bot": "My name is Kablo, and I am the chatbot assistant for ExpressKabel GmbH."
         },
         {
+            "user": "What is your role?",
+            "bot": "I inform our customers about ExpressKabel GmbH and their products."
+        },
+        {
+            "user": "What are you testing, Kablo??",
+            "bot": "I am here to help you with any questions you have about ExpressKabel GmbH."
+        },
+        {
             "user": "What are you good at?",
             "bot": "I inform our customers about ExpressKabel GmbH and their products."
         },
         {
             "user": "Is ExpressKabel ISO certified?",
             "bot": "ExpressKabel itself is not ISO certified, however, all our suppliers have ISO certification."
+        },
+        {
+            "user": "Do you have further details or specific Information?",
+            "bot": "For in-depth information, please visit our website or contact us at info@express-kabel.de ."
         }
     ],
     "product": [
@@ -37,6 +49,10 @@
         {
             "user": "Which products do you offer?",
             "bot": "We sell a wide variety of different cables, amongst them are High Voltage, Ethernet, Coaxial and FLRY cables."
+        },
+        {
+            "user": "Do you have further details or specific Information?",
+            "bot": "For in depth information related to our products, please contact our sales team at sales@express-kabel.de they will certainly help you."
         },
         {
             "user": "I require automotive cables, do you have them?",
@@ -115,6 +131,20 @@
         {
             "user": "What are your pick-up times?",
             "bot": "Mon \u2013 Thu: 07:30 \u2013 16:00, Fri: 07:30 \u2013 13:30"
+        },
+        {
+            "user": "Do you have further details or specific Information?",
+            "bot": "For detailed information on our services, please contact our sales team at sales@express-kabel.de they will certainly help you."
+        }
+    ],
+    "conditions": [
+        {
+            "user": "What are your payment terms?",
+            "bot": "Our payment terms are negotiable."
+        },
+        {
+            "user": "Do you have further details concerning payment, delivery or contractual information?",
+            "bot": "For in-depth information, please contact our sales team at sales@express-kabel.de they will certainly help you."
         }
     ]
 }

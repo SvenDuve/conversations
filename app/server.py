@@ -122,6 +122,7 @@ classify the request into one of the following categories:
 - general
 - product
 - service
+- conditions
 
 """
 
@@ -238,10 +239,10 @@ print("Loading Vectorstore")
 
 
 retriever = retrieval_blocks(
-    build_vectorstore=False,
+    build_vectorstore=True,
     LLM_service = "OpenAI",
     vectorstore_name="vs",
-    chunk_size=512,
+    chunk_size=1024,
     chunk_overlap=256,
     # retriever_type="vectorstore_backed_retriever",
     retriever_type="Cohere_reranker",
@@ -252,7 +253,7 @@ retriever = retrieval_blocks(
     compression_retriever_k = 16,
     cohere_api_key = cohereapikey,
     cohere_model = "rerank-multilingual-v2.0",
-    cohere_top_n = 8
+    cohere_top_n = 2
 )
 
 print("Retriever Loading Time: ", time.time() - start_time)

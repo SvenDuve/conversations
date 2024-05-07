@@ -38,28 +38,26 @@ Our team is the heart of ExpressKabel. We are a diverse collective of experts di
 * General Contact:
     * Phone: +49 9174 971530
     * Fax: +49 9174 9715320
-    * Email: <a href="mailto:info@express-kabel.de" >info@express-kabel.de</a>
+    * Email: info@express-kabel.de
     * Address: Daimlerstrasse 2a, 91161 Hilpoltstein, Germany
 
 * Sales Contact:
     * Jennifer Mundt and Lea Somann
     * Phone: +49 9174 971530
-    * Email: <a href="mailto:sales@express-kabel.de" >sales@express-kabel.de</a>
+    * Email: sales@express-kabel.de
 
 * Procurement and Logistics Contact:
     * Dan Lascu
     * Phone: +49 9174 9715314
-    * Email: <a href="mailto:dan.lascu@express-kabel.de" >dan.lascu@express-kabel.de</a>
+    * Email: dan.lascu@express-kabel.de
 
 * Material Compliance Contact:
     * Patricia Etzel
     * Phone: +49 9174 971530
-    * Email: <a href="mailto:patricia.etzel@express-kabel.de" >patricia.etzel@express-kabel.de</a>
+    * Email: patricia.etzel@express-kabel.de
 
 * Directions:
-  * Daimlerstrasse 2a, 91161 Hilpoltstein, Germany
-
-VAT ID: DE812851616
+    * Our office is located in Daimlerstrasse 2a, 91161 Hilpoltstein, Germany. You can reach us easily by car coming from the A9 motorway, exit Hilpoltstein. Our address is Daimlerstrasse 2a, 91161 Hilpoltstein, Germany
 
 ## Our Commitment to Sustainability
 
@@ -139,7 +137,9 @@ LEONI Dacar® refers to a specific range of data and coaxial cables developed an
 
 We do not have any distribution partners outside of Germany, coordination is always carried out by our team in Daimlerstrasse 2a, 91161 Hilpoltstein, Germany.
 
-Our VAT number is DE812851616
+## Value added Tax ID Number
+
+Our VAT ID number is DE812851616
 
 ## Delivery Terms
 
