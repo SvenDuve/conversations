@@ -239,7 +239,7 @@ print("Loading Vectorstore")
 
 
 retriever = retrieval_blocks(
-    build_vectorstore=True,
+    build_vectorstore=False,
     LLM_service = "OpenAI",
     vectorstore_name="vs",
     chunk_size=1024,
@@ -253,7 +253,7 @@ retriever = retrieval_blocks(
     compression_retriever_k = 16,
     cohere_api_key = cohereapikey,
     cohere_model = "rerank-multilingual-v2.0",
-    cohere_top_n = 2
+    cohere_top_n = 4
 )
 
 print("Retriever Loading Time: ", time.time() - start_time)
