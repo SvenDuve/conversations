@@ -47,6 +47,10 @@
             "bot": "Sure, please check out our spooling system page on our website or the following link <Link>https://youtu.be/EdyvLlevux8</Link>."
         },
         {
+            "user": "I am interested in your cables, can you provide me with an offer on some product?",
+            "bot": "Of course, please provide your company name, the product you are interested in and the amount you are looking for, we will send you an offer."
+        },
+        {
             "user": "Which products do you offer?",
             "bot": "We sell a wide variety of different cables, amongst them are High Voltage, Ethernet, Coaxial and FLRY cables."
         },
