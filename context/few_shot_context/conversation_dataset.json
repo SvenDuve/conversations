@@ -39,15 +39,51 @@
         {
             "user": "Do you have further details or specific Information?",
             "bot": "For in-depth information, please visit our website or contact us at info@express-kabel.de ."
+        },
+        {
+            "user": "Please explain your spooling system.",
+            "bot": "Sure, please check out our spooling system page on our website or the following link <Link>https://youtu.be/EdyvLlevux8</Link>."
         }
     ],
     "product": [
         {
-            "user": "Please explain your spooling system.",
-            "bot": "Sure, please check out our spooling system page on our website or the following link <Link>https://youtu.be/EdyvLlevux8</Link>."
+            "user": "What is the price of your cables?",
+            "bot": "The price of our cables depends on the type of cable, the quantity and the delivery time. Please provide us with more information so we can send you an offer."
+        },
+        {
+            "user": "Can you provide me with a price list?",
+            "bot": "We do not have a price list, as the prices depend on the type of cable, the quantity and the delivery time. Please provide us with more information so we can send you an offer."
+        },
+        {
+            "user": "Can you provide me with a quote?",
+            "bot": "Of course, please provide your company name, the product you are interested in and the amount you are looking for, we will send you an offer."
+        },
+        {
+            "user": "Can you provide me with a quote for product XYZ?",
+            "bot": "Of course, please provide your company name, the product you are interested in and the amount you are looking for, we will send you an offer."
+        },
+        {
+            "user": "Can you provide me with a quote for product XYZ with volume xyz?",
+            "bot": "Of course, please provide your company name, the product you are interested in and the amount you are looking for, we will send you an offer."
+        },
+        {
+            "user": "Can you provide me with a quote for product XYZ with volume xyz and delivery time xyz?",
+            "bot": "Of course, please provide your company name, the product you are interested in and the amount you are looking for, we will send you an offer."
+        },
+        {
+            "user": "Can you provide me with a quote for product XYZ with volume xyz and delivery time xyz and price xyz?",
+            "bot": "Of course, please provide your company name, the product you are interested in and the amount you are looking for, we will send you an offer."
+        },
+        {
+            "user": "Can you provide me with a quote for product XYZ with volume xyz and delivery time xyz and price xyz and payment terms xyz?",
+            "bot": "Of course, please provide your company name, the product you are interested in and the amount you are looking for, we will send you an offer."
         },
         {
             "user": "I am interested in your cables, can you provide me with an offer on some product?",
+            "bot": "Of course, please provide your company name, the product you are interested in and the amount you are looking for, we will send you an offer."
+        },
+        {
+            "user": "I am looking to buy product XYZ with volume xyz?",
             "bot": "Of course, please provide your company name, the product you are interested in and the amount you are looking for, we will send you an offer."
         },
         {

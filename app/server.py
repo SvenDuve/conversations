@@ -15,7 +15,7 @@ origins = [
 ]
 
 from packages.nest_retrievers import HelloWorld, vectorstore_backed_retriever, create_compression_retriever, CohereRerank_retriever, retrieval_blocks
-from packages.utils import langchain_document_loader, select_embeddings_model, create_vectorstore, instantiate_LLM, load_conversation_dataset
+from packages.utils import langchain_document_loader, select_embeddings_model, create_vectorstore, instantiate_LLM, load_conversation_dataset, sendProductRequest
 
 ## New Imports
 import numpy as np
@@ -79,6 +79,13 @@ from langchain_core.messages.utils import get_buffer_string
 from langserve import add_routes
 from langserve.pydantic_v1 import BaseModel, Field
 
+from langchain_core.tools import tool, BaseTool
+from typing import Optional, Type
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+
+
 
 # Import the load_dotenv function
 from dotenv import load_dotenv
@@ -91,6 +98,8 @@ import os
 openaiapikey = os.getenv('OPENAI_API_KEY')
 hfapikey = os.getenv('HF_API_KEY')
 cohereapikey = os.getenv('COHERE_API_KEY')
+senderemail = os.getenv('EMAIL')
+emailpassword = os.getenv('EMAIL_PASSWORD')
 
 
 ##
@@ -101,10 +110,31 @@ from langchain_core.prompts import format_document
 print("Package Loading Time: ", time.time() - start_time)
 
 
+
+
+
+
 # model = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.5, api_key=openaiapikey)
 model = instantiate_LLM("OpenAI", api_key=openaiapikey, temperature=0.1, model_name="gpt-3.5-turbo")
+model_with_tools = instantiate_LLM("OpenAI", api_key=openaiapikey, temperature=0.0, model_name="gpt-3.5-turbo")
 # model = instantiate_LLM("HuggingFace", api_key=hfapikey, temperature=0.1, model_name="mistralai/Mistral-7B-Instruct-v0.2")
 
+
+@tool
+def getProductRequest(client_name: str, product_name: str, volume: str) -> str:
+    """Gathers information about a product request.
+
+    Args:
+        client_name: name of the client
+        product_name: name of the product
+        volume: volume of the product
+    """
+    return f"Client Name: {client_name} \n Product Name: {product_name} \n Volume: {volume}"
+
+
+tools = [getProductRequest]
+toolDict = {"getProductRequest": getProductRequest}
+llm_with_tools = model_with_tools.bind_tools(tools)
 
 # Some Data
 # Example of structuring a conversation dataset
@@ -165,6 +195,21 @@ Answer:
 
 ANSWER_PROMPT = ChatPromptTemplate.from_template(ANSWER_TEMPLATE)
 
+# Request Prompt
+
+REQUEST_TEMPLATE = """For the following product request:
+
+Client contact: {client_name}
+Product of interest: {product_name}
+Volume: {volume}
+
+summarize these in one or two sentences, and confirm to the client that the sales department will contact them.
+
+Generate your summary in a normal text form in friendly and assisting way in {language}.
+"""
+
+
+REQUEST_PROMPT = PromptTemplate.from_template(REQUEST_TEMPLATE)
 
 # Simple Language Prompt
 LANGUAGE_PROMPT = PromptTemplate.from_template("Please state the language of the following text: {question}?")
@@ -264,20 +309,21 @@ entry = RunnableParallel(chat_history = RunnableLambda(lambda x: _format_chat_hi
             question = RunnableLambda(lambda x : x["question"]))#.invoke(hist.dict())
 
 
+# takes condensed question as input
 zero_shot_classifier = (
     ZERO_SHOT_PROMPT
     | model
     | StrOutputParser()
 )
 
-
+# takes question and chat_history as input
 standalone = (
     CONDENSE_QUESTION_PROMPT
     | model
     | StrOutputParser()
 )
 
-
+# takes original question as input
 checklanguage = (
     LANGUAGE_PROMPT
     | model
@@ -294,21 +340,61 @@ class ChatHistory(BaseModel):
     )
     question: str
 
+def _check_requests(requests):
+    print(requests)
+    for request in requests:
+        if request['name'] == 'getProductRequest':
+            if request['args']['client_name'] and request['args']['product_name'] and request['args']['volume']:
+                # Potentially add NER here, or other checks, and in case parsed output is not correct, return None or fill the fields with ''
+                return request
+    return None
+
+def format_request(data):
+    return {
+        "few_shot_conv": data['few_shot_conv'],
+        "language": data['language'],
+        **data['request']['args']
+    }
+
+
+def route(data):
+    if data['request'] != None:
+        run_tool = toolDict[data['request']['name']]
+        run_tool_args = data['request']['args']
+        print(run_tool_args)
+        consistency_check = (PromptTemplate.from_template("Is {client_name} a personal pronom in english or german, answer simply with true or false?") | model | StrOutputParser()).invoke(itemgetter("client_name", "product_name", "volume")(run_tool_args))
+        print(consistency_check)
+        if consistency_check.lower() == "true" or run_tool_args['client_name'].lower() in ["expresskabel", "express kabel", "express kabel gmbh"]:
+            return ANSWER_PROMPT
+        summary = (PromptTemplate.from_template(template = "Please summarise this conversation: {chat_history}\n\n In case there is nothing to summarize state nothing to summarise") | model | StrOutputParser()).invoke(data)
+        msg = run_tool(run_tool_args)
+        sendProductRequest(msg, summary)
+        return format_request | REQUEST_PROMPT #| model | StrOutputParser() 
+    else:
+        return ANSWER_PROMPT #| model | StrOutputParser()
+
 
 
 conversational_qa_chain = (
     entry
     | RunnableParallel(
         few_shot_conv = standalone | zero_shot_classifier | _get_conversations,
-        #chat_history = itemgetter("chat_history"),
+        chat_history = RunnableLambda(lambda x: x["chat_history"]),
         question = standalone,
         context = standalone | retriever | _combine_documents,
-        language = checklanguage 
+        language = checklanguage,
+        # request_one = PromptTemplate.from_template(template="{question}"),
+        # request_two = PromptTemplate.from_template(template="{question}") | llm_with_tools, 
+        request = PromptTemplate.from_template(template="{question}") | llm_with_tools | RunnableLambda(lambda x : x.tool_calls) | _check_requests      
+#  request = standalone | llm_with_tools | RunnableLambda(lambda x : x.tool_calls) | _check_requests
     )
-    | ANSWER_PROMPT # Requires question, history and context
+    | route
     | model
     | StrOutputParser()
 )
+
+
+
 
 
 chain = conversational_qa_chain.with_types(input_type=ChatHistory)

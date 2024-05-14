@@ -22,6 +22,12 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain.text_splitter import CharacterTextSplitter
 
 
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+
+
+
 def langchain_document_loader(path):
     documents = []
 
@@ -104,3 +110,28 @@ def load_conversation_dataset():
     with open('./context/few_shot_context/conversation_dataset.json', 'r') as f:
         conversation_dataset = json.load(f)
     return conversation_dataset
+
+
+def sendProductRequest(message: str, summary: str):
+
+    # Environment variables for security
+    sender_email = os.getenv('EMAIL')
+    receiver_email = "svenduve@gmail.com"
+    password = 'Pilsener/123'  # Secure way to handle credentials
+    # Create the multipart container
+    msg = MIMEMultipart()
+    msg['From'] = sender_email
+    msg['To'] = receiver_email
+    msg['Subject'] = "Chat Summary"
+    # Email body
+    text = "Hello, this is a summary of the chat.\n\n" + summary + "\n\n and this is the requested product: \n\n" + message
+    msg.attach(MIMEText(text, 'plain'))
+    # Send the email
+    try:
+        # Create server object with SSL option
+        server = smtplib.SMTP_SSL('send.one.com', 465)
+        server.login(sender_email, password)
+        server.sendmail(sender_email, receiver_email, msg.as_string())
+        server.quit()
+    except Exception as e:
+        print("Error: unable to send email", e)
