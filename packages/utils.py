@@ -117,7 +117,9 @@ def sendProductRequest(message: str, summary: str):
     # Environment variables for security
     sender_email = os.getenv('EMAIL')
     receiver_email = "svenduve@gmail.com"
-    password = 'Pilsener/123'  # Secure way to handle credentials
+    # receiver_email = "bjoern.etzel@express-kabel.de"
+    # password = 'Pilsener/123'  # Secure way to handle credentials
+    password = os.getenv('EMAIL_PASSWORD')  # Secure way to handle credentials
     # Create the multipart container
     msg = MIMEMultipart()
     msg['From'] = sender_email
