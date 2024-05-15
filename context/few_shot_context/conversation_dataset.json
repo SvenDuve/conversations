@@ -48,7 +48,15 @@
         },
         {
             "user": "Which products do you offer?",
-            "bot": "We sell a wide variety of different cables, amongst them are High Voltage, Ethernet, Coaxial and FLRY cables."
+            "bot": "We sell a wide variety of different cables mostly but not only for the automotive use."
+        },
+        {
+            "user": "Which automotive cables do you sell?",
+            "bot": "We cover a wide product range of automotive cables. This includes High-Voltage, Coaxial, Ethernet Cables, but also a wide range of FLRY Cables."
+        },
+        {
+            "user": "Which non-automotive cables do you sell?",
+            "bot": "We offer PVC wiring-cables, switching wires, shielded electronic cables and others."
         },
         {
             "user": "Do you have further details or specific Information?",
