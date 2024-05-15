@@ -203,17 +203,27 @@ def _get_conversations(classification: str, conversation_dataset=conversation_da
     return f"\n{example_conversations}"
 
 
-# This formats the chat history into a string
-def _format_chat_history(chat_history: List[Tuple]) -> str:
+# # This formats the chat history into a string
+# def _format_chat_history(chat_history: List[Tuple]) -> str:
+#     """Format chat history into a string."""
+#     buffer = ""
+#     for dialogue_turn in chat_history:
+#         human = "Human: " + dialogue_turn[0]
+#         ai = "Assistant: " + dialogue_turn[1]
+#         buffer += "\n" + "\n".join([human, ai])
+#     #buffer = generate_prompt_with_examples(conversation_dataset=conversation_dataset) + buffer
+#     return buffer
+
+from collections import deque
+
+def _format_chat_history(chat_history: List[Tuple], buffer_size: int) -> str:
     """Format chat history into a string."""
-    buffer = ""
+    buffer = deque(maxlen=buffer_size)
     for dialogue_turn in chat_history:
         human = "Human: " + dialogue_turn[0]
         ai = "Assistant: " + dialogue_turn[1]
-        buffer += "\n" + "\n".join([human, ai])
-    #buffer = generate_prompt_with_examples(conversation_dataset=conversation_dataset) + buffer
-    return buffer
-
+        buffer.append("\n" + "\n".join([human, ai]))
+    return "".join(buffer)
 
 # Get context from the website:
 # loader = WebBaseLoader(["https://www.express-kabel.de/ueber-uns/"])
@@ -260,7 +270,7 @@ print("Retriever Loading Time: ", time.time() - start_time)
 # retriever = vectorstore.as_retriever()
 
 
-entry = RunnableParallel(chat_history = RunnableLambda(lambda x: _format_chat_history(x["chat_history"])),
+entry = RunnableParallel(chat_history = RunnableLambda(lambda x: _format_chat_history(x["chat_history"], buffer_size=3)),
             question = RunnableLambda(lambda x : x["question"]))#.invoke(hist.dict())
 
 
