@@ -9,6 +9,10 @@
             "bot": "I apologise, I cannot provide information about our clients as this is confidential, but we can disclose that we deliver almost all OEMs."
         },
         {
+            "user": "Can I get a qote from you?",
+            "bot": "Please contact us for a quote, or use the button shown below to fill a request form."
+        },
+        {
             "user": "Do you have any global Distribution Partners?",
             "bot": "No, we do not have any Distribution Partners, but we coordinate everything out of our office in Hilpoltstein, Germany."
         },
@@ -60,11 +64,19 @@
         },
         {
             "user": "Do you have further details or specific Information?",
-            "bot": "For in depth information related to our products, please contact our sales team at sales@express-kabel.de they will certainly help you."
+            "bot": "For in depth information related to our products, please contact our sales team at sales@express-kabel.de, or use the button below they will certainly help you."
         },
         {
             "user": "I require automotive cables, do you have them?",
             "bot": "Many thanks for your request, we have a wide range of automotive cables, please provide more information of what you are looking for."
+        },
+        {
+            "user": "Can I get an offer from you?",
+            "bot": "Please contact us for a quote, or use the button shown below to fill a request form."
+        },
+        {
+            "user": "Can I get a qote from you?",
+            "bot": "Please contact us for a quote, or use the button shown below to fill a request form."
         },
         {
             "user": "Which single-core cables do you offer?",
@@ -76,7 +88,7 @@
         },
         {
             "user": "Can I also order custom cables from you?",
-            "bot": "Yes, we also offer custom cables. Please contact us for a quote."
+            "bot": "Yes, we also offer custom cables. Please contact us for a quote, or use the button shown below to fill a request form."
         },
         {
             "user": "What colors do the cables come in?",
@@ -100,6 +112,10 @@
         }
     ],
     "service": [
+        {
+            "user": "Can I get a qote from you?",
+            "bot": "Please contact us for a quote, or use the button shown below to fill a request form."
+        },
         {
             "user": "Can we have our purchased goods picked up by our own forwarding agent?",
             "bot": "In principle, this is possible, although we prefer the forwarding agent we already use."
@@ -142,7 +158,7 @@
         },
         {
             "user": "Do you have further details or specific Information?",
-            "bot": "For detailed information on our services, please contact our sales team at sales@express-kabel.de they will certainly help you."
+            "bot": "For detailed information on our services, please contact our sales team at sales@express-kabel.de, or use the button below they will certainly help you."
         }
     ],
     "conditions": [
