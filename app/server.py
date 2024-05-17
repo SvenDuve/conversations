@@ -124,6 +124,7 @@ classify the request into one of the following categories:
 - service
 - conditions
 
+answer only with the word for the category.
 """
 
 ZERO_SHOT_PROMPT = PromptTemplate.from_template(ZERO_SHOT_PROMPT_TEMPLATE)
@@ -146,7 +147,7 @@ CONDENSE_QUESTION_PROMPT = PromptTemplate.from_template(_TEMPLATE)
 # General Answer Template
 ANSWER_TEMPLATE = """You are a very friendly and helpful assistant from the company ExpressKabel GmbH. You speak all possible languages and you pay attention to the grammar rules of each language. You are having a conversation with a potential client.
 
-Please take into account the following example conversations:
+Please take into account the most relevant context from the following example conversations:
 
 {few_shot_conv}
 
@@ -158,7 +159,7 @@ Now consider the following question and translate it to english when necceassary
 
 {question}
 
-Provide the answer only if you are sure with two to three sentences, taking into account all input given in a very friendly, formal and assisting way in {language}
+Answer with two to three sentences in {language} and do not make up anything.
 
 Answer:
 """
@@ -271,7 +272,12 @@ print("Retriever Loading Time: ", time.time() - start_time)
 
 
 entry = RunnableParallel(chat_history = RunnableLambda(lambda x: _format_chat_history(x["chat_history"], buffer_size=3)),
-            question = RunnableLambda(lambda x : x["question"]))#.invoke(hist.dict())
+            question = RunnableLambda(lambda x : x["question"]))
+#            language = RunnableLambda(lambda x : x["language"]))#.invoke(hist.dict())
+
+test_entry = RunnableParallel(chat_history = RunnableLambda(lambda x: _format_chat_history(x["chat_history"], buffer_size=3)),
+            question = RunnableLambda(lambda x : x["question"]),
+            language = RunnableLambda(lambda x : x["language"]))#.invoke(hist.dict())
 
 
 zero_shot_classifier = (
@@ -304,6 +310,15 @@ class ChatHistory(BaseModel):
     )
     question: str
 
+class ChatHistoryLanguage(BaseModel):
+    """Chat history with the bot."""
+
+    chat_history: List[Tuple[str, str]] = Field(
+        ...,
+        extra={"widget": {"type": "chat", "input": "question"}},
+    )
+    question: str
+    language: str
 
 
 conversational_qa_chain = (
@@ -321,8 +336,24 @@ conversational_qa_chain = (
 )
 
 
-chain = conversational_qa_chain.with_types(input_type=ChatHistory)
+conversational_qa_chain_langage = (
+    test_entry
+    | RunnableParallel(
+        few_shot_conv = standalone | zero_shot_classifier | _get_conversations,
+        #chat_history = itemgetter("chat_history"),
+        question = standalone,
+        context = standalone | retriever | _combine_documents,
+        language = itemgetter("language")
+    )
+    | ANSWER_PROMPT # Requires question, history and context
+    | model
+    | StrOutputParser()
+)
 
+
+
+chain = conversational_qa_chain.with_types(input_type=ChatHistory)
+chain_language = conversational_qa_chain_langage.with_types(input_type=ChatHistoryLanguage)
 
 
 
@@ -343,7 +374,9 @@ app.add_middleware(
 
 
 # Edit this to add the chain you want to add
+# add_routes(app, chain, path = "/main", enable_feedback_endpoint=True)
 add_routes(app, chain, enable_feedback_endpoint=True)
+add_routes(app, chain_language, path = "/test", enable_feedback_endpoint=True)
 
 # add a simple hello world route
 @app.get("/")
