@@ -38,25 +38,26 @@ Our team is the heart of ExpressKabel. We are a diverse collective of experts di
 * General Contact:
     * Phone: +49 9174 971530
     * Fax: +49 9174 9715320
-    * Email: <a href="mailto:info@express-kabel.de" >info@express-kabel.de</a>
+    * Email: info@express-kabel.de
     * Address: Daimlerstrasse 2a, 91161 Hilpoltstein, Germany
 
 * Sales Contact:
     * Jennifer Mundt and Lea Somann
     * Phone: +49 9174 971530
-    * Email: <a href="mailto:sales@express-kabel.de" >sales@express-kabel.de</a>
+    * Email: sales@express-kabel.de
 
 * Procurement and Logistics Contact:
     * Dan Lascu
     * Phone: +49 9174 9715314
-    * Email: <a href="mailto:dan.lascu@express-kabel.de" >dan.lascu@express-kabel.de</a>
+    * Email: dan.lascu@express-kabel.de
 
 * Material Compliance Contact:
     * Patricia Etzel
     * Phone: +49 9174 971530
-    * Email: <a href="mailto:patricia.etzel@express-kabel.de" >patricia.etzel@express-kabel.de</a>
+    * Email: patricia.etzel@express-kabel.de
 
-VAT ID: DE812851616
+* Directions:
+    * Our office is located in Daimlerstrasse 2a, 91161 Hilpoltstein, Germany. You can reach us easily by car coming from the A9 motorway, exit Hilpoltstein. Our address is Daimlerstrasse 2a, 91161 Hilpoltstein, Germany
 
 ## Our Commitment to Sustainability
 
@@ -91,9 +92,8 @@ We value customer satisfaction and handle orders with the same care and reliabil
 At ExpressKabel, we are optimistic about the future. We plan to continue to grow, expand our reach, and offer our customers innovative, sustainable solutions. Our vision is to be not only a leading company in the cable industry but also to have a positive impact on society and the environment.
 
 
-# Products and Services of Express Kabel GmbH
+# Services of Express Kabel GmbH
 
-## Services
 
 * Storage Services: We offer storage services for cables, ensuring that our customers have access to the products they need when they need them.
 * Rewinding service: We offer a rewinding service for cables in order to realize individual lengths and designs for our customers. In particular, we also rewind from large spools to smaller spools.
@@ -102,6 +102,11 @@ At ExpressKabel, we are optimistic about the future. We plan to continue to grow
 * Small quantities: We also deliver small quantities of cables to give small companies and startups access to high-quality products.
 * Original Equipment Manufacturers (OEM): We also supply OEMs with cables in the area of ​​research and development for the production of pre-series and series.
 * Material compliance: We offer our customers support in complying with material regulations and certifications for cables.
+
+
+# Products of Express Kabel GmbH
+
+We distribute a wide range of cables for various industries, with a focus on the automotive sector. We mainly offer FLRY Cables, High Voltage Automotive Cables, and Automotive Data Cables. Our products are known for their high quality, durability, and reliability, making them ideal for demanding applications in the automotive industry.
 
 ## FLRY Cables
 
@@ -132,21 +137,23 @@ LEONI Dacar® refers to a specific range of data and coaxial cables developed an
 
 We do not have any distribution partners outside of Germany, coordination is always carried out by our team in Daimlerstrasse 2a, 91161 Hilpoltstein, Germany.
 
-Our VAT number is DE812851616
+## Value added Tax ID Number
 
-### Delivery Terms
+Our VAT ID number is DE812851616
+
+## Delivery Terms
 
 * Delivery is **generally** made **ex works**, EXW, Daimlerstrasse 2a, 91161 Hilpoltstein, Germany. 
 * Only for **appropriate quantities and after negotiation** we can deliver under the terms **free delivery** or **Delivered At Place**, DAP.
 
-### Delivery Countries 
+## Delivery Countries 
 
 We deliver worldwide. Delivery costs may vary depending on the delivery location.
 
-### Delivery Times
+## Delivery Times
 
 Within Europe, the delivery time is usually 1-4 business days. For deliveries outside of Europe, delivery times can vary depending on the country.
 
-### Payment Terms
+## Payment Terms
 
 Payment terms are negotiable.
