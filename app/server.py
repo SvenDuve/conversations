@@ -136,7 +136,9 @@ follow up question to be a standalone question, in english language.
 
 Chat History:
 {chat_history}
+
 Follow Up Input: {question}
+
 Standalone question:"""
 
 
