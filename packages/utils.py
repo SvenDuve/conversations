@@ -13,6 +13,11 @@ from langchain_community.document_loaders import (
 import os
 import json
 
+# Database Manipulation
+import pandas as pd
+import sqlite3
+from langchain_community.utilities import SQLDatabase
+
 # Vector Stores
 #from langchain_community.vectorstores import FAISS
 from langchain_chroma import Chroma
@@ -104,3 +109,53 @@ def load_conversation_dataset():
     with open('./context/few_shot_context/conversation_dataset.json', 'r') as f:
         conversation_dataset = json.load(f)
     return conversation_dataset
+
+
+def get_dbase(create=False, dbase_name='cables.db', csv_name='cables.csv'):
+    
+    if create:
+        data = pd.read_csv(os.path.join('dbase', csv_name), delimiter=';')
+
+        data.columns = ['Artikel', 'Beschreibung', 'Einsatzgebiet', 'Nennquerschnitt', 
+                        'Außendurchmesser', 'Zulässige_Abweichung', 'Gewicht', 
+                        'Min_Temperaturbeständigkeit', 'Max_Temperaturbeständigkeit', 
+                        'Produktblatt']
+
+        conn = sqlite3.connect(os.path.join('dbase', dbase_name))
+        print(True) if conn else print(False)
+        cursor = conn.cursor()
+        # Create the table
+        cursor.execute('''
+        CREATE TABLE IF NOT EXISTS cables (
+            Artikel TEXT,
+            Beschreibung TEXT,
+            Einsatzgebiet TEXT,
+            Nennquerschnitt TEXT,
+            Außendurchmesser TEXT,
+            Zulässige_Abweichung TEXT,
+            Gewicht TEXT,
+            Min_Temperaturbeständigkeit INTEGER,
+            Max_Temperaturbeständigkeit INTEGER,
+            Produktblatt TEXT
+        )
+        ''')
+
+        data.to_sql('cables', conn, if_exists='replace', index=False)
+        conn.commit()
+        conn.close()
+    # conn = sqlite3.connect(dbase_name)
+    # test_db(dbase_name)
+
+    return SQLDatabase.from_uri(f"sqlite:///{os.path.join('dbase', dbase_name)}")
+    # return conn
+
+
+def test_db(dbase_name, table_name='cables'):
+    conn = sqlite3.connect(os.path.join('dbase', dbase_name))
+    cursor = conn.cursor()
+    cursor.execute(f'SELECT * FROM {table_name}')
+    rows = cursor.fetchall()
+    for row in rows[:5]:
+        print(row[0])
+    conn.close()
+    return None

@@ -15,7 +15,7 @@ origins = [
 ]
 
 from packages.nest_retrievers import HelloWorld, vectorstore_backed_retriever, create_compression_retriever, CohereRerank_retriever, retrieval_blocks
-from packages.utils import langchain_document_loader, select_embeddings_model, create_vectorstore, instantiate_LLM, load_conversation_dataset
+from packages.utils import langchain_document_loader, select_embeddings_model, create_vectorstore, instantiate_LLM, load_conversation_dataset, get_dbase, test_db
 
 ## New Imports
 import numpy as np
@@ -109,6 +109,12 @@ model = instantiate_LLM("OpenAI", api_key=openaiapikey, temperature=0.1, model_n
 # Some Data
 # Example of structuring a conversation dataset
 conversation_dataset = load_conversation_dataset()
+
+
+# DBase creation
+db = get_dbase(create=True)
+print("Database created") if db else print("Database not created")
+# test_db('cables.db')
 
 
 # Zero shot classifier
