@@ -73,6 +73,11 @@ from langchain_cohere import CohereRerank
 from langchain_community.llms import Cohere
 
 
+# dbase operations
+from langchain_community.utilities import SQLDatabase
+from langchain_community.tools.sql_database.tool import QuerySQLDataBaseTool
+from langchain.chains import create_sql_query_chain
+
 
 # unclear
 from langchain_core.messages.utils import get_buffer_string
@@ -112,8 +117,10 @@ conversation_dataset = load_conversation_dataset()
 
 
 # DBase creation
-db = get_dbase(create=True)
-print("Database created") if db else print("Database not created")
+# check only neccessary locally
+database_creation = False if os.path.isfile(os.path.join("dbase", "cables.db")) else True
+db = get_dbase(create=database_creation)
+print(db.dialect)
 # test_db('cables.db')
 
 
@@ -134,6 +141,47 @@ answer only with the word for the category.
 """
 
 ZERO_SHOT_PROMPT = PromptTemplate.from_template(ZERO_SHOT_PROMPT_TEMPLATE)
+
+
+# Few shot classifier
+
+FEW_SHOT_DBASE_PROMPT_TEMPLATE = """
+Can the following request be answered with a SQL query?
+
+Question: Please list all FLRY-B cables in the product range of ExpressKabel GmbH.
+Answer: yes
+
+Question: Show me the product sheet of a 2x0.75mm² FLRY-B cable.
+Answer: yes
+
+Question: Who is the Managing Director of the company?
+Answer: no
+
+Now consider the following request, answer with yes or no:
+
+Question: {question}
+Answer:
+"""
+
+FEW_SHOT_DBASE_PROMPT = PromptTemplate.from_template(FEW_SHOT_DBASE_PROMPT_TEMPLATE)
+
+# Dbase answer prompt
+DBASE_ANSWER_PROMPT_TEMPLATE = """Given the following user question, corresponding SQL query, and SQL result, answer the user question.
+
+Question: {question}
+SQL Query: {query}
+SQL Result: {result}
+
+Considering the user question, provide the SQL Result as readable list and summarize the SQL Result in a few sentences.
+
+Please provide your answer in {language}.
+
+Answer: 
+"""
+
+
+DBASE_ANSWER_PROMPT = PromptTemplate.from_template(DBASE_ANSWER_PROMPT_TEMPLATE)
+
 
 
 # Condense Question
@@ -166,7 +214,7 @@ Please extract relevant information from the context:
 
 Now consider the following question and translate it to english when necceassary:
 
-{question}
+{standalone_question}
 
 Answer with two to three sentences in {language} and do not make up anything.
 
@@ -177,7 +225,7 @@ ANSWER_PROMPT = ChatPromptTemplate.from_template(ANSWER_TEMPLATE)
 
 
 # Simple Language Prompt
-LANGUAGE_PROMPT = PromptTemplate.from_template("Please state the language of the following text: {question}?")
+# LANGUAGE_PROMPT = PromptTemplate.from_template("Please state the language of the following text: {question}?")
 
 
 # Placeholder Prmpt for the RAG retriever
@@ -281,12 +329,12 @@ print("Retriever Loading Time: ", time.time() - start_time)
 
 
 entry = RunnableParallel(chat_history = RunnableLambda(lambda x: _format_chat_history(x["chat_history"], buffer_size=3)),
-            question = RunnableLambda(lambda x : x["question"]))
-#            language = RunnableLambda(lambda x : x["language"]))#.invoke(hist.dict())
-
-test_entry = RunnableParallel(chat_history = RunnableLambda(lambda x: _format_chat_history(x["chat_history"], buffer_size=3)),
             question = RunnableLambda(lambda x : x["question"]),
             language = RunnableLambda(lambda x : x["language"]))#.invoke(hist.dict())
+
+# test_entry = RunnableParallel(chat_history = RunnableLambda(lambda x: _format_chat_history(x["chat_history"], buffer_size=3)),
+#             question = RunnableLambda(lambda x : x["question"]),
+#             language = RunnableLambda(lambda x : x["language"]))#.invoke(hist.dict())
 
 
 zero_shot_classifier = (
@@ -294,6 +342,17 @@ zero_shot_classifier = (
     | model
     | StrOutputParser()
 )
+
+few_shot_classifier = (
+    FEW_SHOT_DBASE_PROMPT
+    | model
+    | StrOutputParser()
+)
+
+# dbase chain
+execute_query = QuerySQLDataBaseTool(db=db)
+write_query = create_sql_query_chain(model, db)
+# dbase_chain = create_sql_query_chain(model, db)
 
 
 standalone = (
@@ -303,21 +362,34 @@ standalone = (
 )
 
 
-checklanguage = (
-    LANGUAGE_PROMPT
-    | model
-    | StrOutputParser()
-)
+def route(data):
+    if data['dbase_request'].lower() == 'yes':
+        return RunnablePassthrough.assign(query=write_query).assign(result=itemgetter("query") | execute_query) | DBASE_ANSWER_PROMPT
+
+        # run_tool = toolDict[data['request']['name']]
+        # run_tool_args = data['request']['args']
+        # summary = (PromptTemplate.from_template(template = "Please summarise this conversation: {chat_history}") | model | StrOutputParser()).invoke(data)
+        # msg = run_tool(run_tool_args)
+        # sendProductRequest(msg, summary)
+        # return PromptTemplate.from_template(template="Please summarise: {question}") | model | StrOutputParser() 
+    else:
+        return ANSWER_PROMPT #| model | StrOutputParser()
+
+# checklanguage = (
+#     LANGUAGE_PROMPT
+#     | model
+#     | StrOutputParser()
+# )
 
 # User input
-class ChatHistory(BaseModel):
-    """Chat history with the bot."""
+# class ChatHistory(BaseModel):
+#     """Chat history with the bot."""
 
-    chat_history: List[Tuple[str, str]] = Field(
-        ...,
-        extra={"widget": {"type": "chat", "input": "question"}},
-    )
-    question: str
+#     chat_history: List[Tuple[str, str]] = Field(
+#         ...,
+#         extra={"widget": {"type": "chat", "input": "question"}},
+#     )
+#     question: str
 
 class ChatHistoryLanguage(BaseModel):
     """Chat history with the bot."""
@@ -335,22 +407,24 @@ conversational_qa_chain = (
     | RunnableParallel(
         few_shot_conv = standalone | zero_shot_classifier | _get_conversations,
         #chat_history = itemgetter("chat_history"),
-        question = standalone,
+        dbase_request = few_shot_classifier,
+        standalone_question = standalone,
+        question = itemgetter("question"),
         context = standalone | retriever | _combine_documents,
-        language = checklanguage 
+        language = itemgetter("language")
     )
-    | ANSWER_PROMPT # Requires question, history and context
+    | route
     | model
     | StrOutputParser()
 )
 
 
 conversational_qa_chain_langage = (
-    test_entry
+    entry
     | RunnableParallel(
         few_shot_conv = standalone | zero_shot_classifier | _get_conversations,
         #chat_history = itemgetter("chat_history"),
-        question = standalone,
+        standalone_question = standalone,
         context = standalone | retriever | _combine_documents,
         language = itemgetter("language")
     )
@@ -361,7 +435,7 @@ conversational_qa_chain_langage = (
 
 
 
-chain = conversational_qa_chain.with_types(input_type=ChatHistory)
+chain = conversational_qa_chain.with_types(input_type=ChatHistoryLanguage)
 chain_language = conversational_qa_chain_langage.with_types(input_type=ChatHistoryLanguage)
 
 
